@@ -28,7 +28,9 @@ class Text(msgspec.Struct, array_like=True):
     id: str
     """A unique identifier for the text incorporating the name of the data source.
     
-    The identifier should be, in order of precedence, the most authoritative, stable and semantic identifier available. As an absolute last resort, the identifier may be the XXH3 64-bit hexdisgest hash of the text itself, prefixed by the name of the data source if one exists."""
+    The identifier should be, in order of precedence, the most authoritative, stable and semantic identifier available.
+    As an absolute last resort, the identifier may be the XXH3 64-bit hexdisgest hash of the text itself, prefixed by
+    the name of the data source if one exists."""
     
     text: str
     """The text itself."""
