@@ -16,3 +16,29 @@ Possible qualities, diversities and priorities are extremely high, very high, me
 Possible eases of access are extremely easy (requires no effort to transform into the desired format), very easy (little effort required), somewhat easy (some effort required), difficult (requires substantial effort required), very difficult (large amount of effort required) and extremely difficult (extreme amount of effort required).
 
 Feel free to update this table with other suggested open data sources.
+
+## Format
+The final training dataset will be a sequence of `text`s. For the purposes of the dataset, a `text` refers to a standalone piece of text, whether it be in the form of a blog post, HTML file, scanned PDF or any other common format text is capable of taking.
+
+A `text` will conform to the following schema, expressed, for the sake of convenience, as a [msgspec struct](https://jcristharif.com/msgspec/structs.html):
+```python
+import msgspec
+
+class Text(msgspec.Struct, array_like=True):
+    id: str
+    """A unique identifier for the text incorporating the name of the data source.
+    
+    The identifier should be, in order of precedence, the most authoritative, stable and semantic identifier available. As an absolute last resort, the identifier may be the XXH3 64-bit hexdisgest hash of the text itself, prefixed by the name of the data source if one exists."""
+    
+    text: str
+    """The text itself."""
+    
+    uri: str = None
+    """The most authoritative uri (ideally, a url) possible for the text, if available."""
+    
+    when: float = None
+    """The Unix timestamp of when the text was scraped, if available."""
+    
+    source: str = None
+    """A canonical name for the direct source of the text, if available."""
+```
